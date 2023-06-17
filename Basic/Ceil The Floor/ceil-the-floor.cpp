@@ -24,28 +24,25 @@ int main() {
 
 // } Driver Code Ends
 
-pair<int, int> getFloorAndCeil(int arr[], int n, int x) {
+//pair<int, int> getFloorAndCeil(int arr[], int n, int x) {
     // code here
-    sort ( arr, arr+n);
-    int left = 0;
-    int right = n - 1;
-    int ceil = -1;
+  //pair<int, int> getFloorAndCeil(int arr[], int n, int x) {
+    pair<int, int> getFloorAndCeil(int arr[], int n, int x) {
     int floor = -1;
-
-    while (left <= right) {
-        int mid = left + (right - left) / 2;
-        if (arr[mid] == x) {
-            floor = arr[mid];
-            ceil = arr[mid];
-            break;
-        } else if (arr[mid] < x) {
-            left = mid + 1;
-            ceil = arr[mid];
-        } else {
-            right = mid - 1;
-            floor = arr[mid];
+    int ceil = INT_MAX;
+    
+    for (int i = 0; i < n; i++) {
+        if (arr[i] <= x && arr[i] > floor) {
+            floor = arr[i];
+        }
+        if (arr[i] >= x && arr[i] < ceil) {
+            ceil = arr[i];
         }
     }
-
-    return make_pair(ceil, floor);
+    
+    if (ceil == INT_MAX) {
+        ceil = -1;
+    }
+    
+    return make_pair(floor, ceil);
 }
