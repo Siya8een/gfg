@@ -27,7 +27,7 @@ int main() {
 //pair<int, int> getFloorAndCeil(int arr[], int n, int x) {
     // code here
   //pair<int, int> getFloorAndCeil(int arr[], int n, int x) {
-    pair<int, int> getFloorAndCeil(int arr[], int n, int x) {
+  pair<int, int> getFloorAndCeil(int arr[], int n, int x) {
     int floor = -1;
     int ceil = INT_MAX;
     
