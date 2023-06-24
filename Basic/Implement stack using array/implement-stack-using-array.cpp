@@ -60,21 +60,32 @@ public:
 };
 */
 
-void MyStack::push(int x)
+void MyStack :: push(int x)
 {
-    top++;
-    arr[top] = x;
+    // Your Code
+    
+    // to push check the overflow condition
+    // if (top== arr.size()){
+    //     return -1;
+    // }
+    // else {
+        top++;
+        arr[top]=x;
+    //}
 }
 
-
 //Function to remove an item from top of the stack.
-int MyStack::pop()
+int MyStack :: pop()
 {
-    if (top <= -1) {
+    // Your Code    
+    if ( top==-1){
+        // underflow condition
         return -1;
-    } else {
-        int poppedValue = arr[top];
+    }
+    else {
+        // store the element and top--;
+        int ans = arr[top];
         top--;
-        return poppedValue;
+        return ans;
     }
 }
