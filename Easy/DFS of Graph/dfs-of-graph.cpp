@@ -14,12 +14,11 @@ class Solution {
              }
          }
     }
-    
   public:
     // Function to return a list containing the DFS traversal of the graph.
     vector<int> dfsOfGraph(int V, vector<int> adj[]) {
         // Code here
-         int vis[V] = {0};
+       int vis[V] = {0};
 
          int start =0;
          vector <int> ls;
