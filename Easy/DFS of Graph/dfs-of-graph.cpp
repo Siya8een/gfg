@@ -5,26 +5,26 @@ using namespace std;
 // } Driver Code Ends
 class Solution {
   public:
-    void  dfs ( int a, vector <int>& ans , int vis[], int V , vector <int> adj[]){
-        vis[a]= 1;
-        ans.push_back (a);
-        for ( auto it : adj[a]){
-             if (!vis[it])
-            dfs ( it, ans, vis , V, adj );
-        }
-         
-    }
     // Function to return a list containing the DFS traversal of the graph.
+    
+      vector<int> dfs(int V, vector<int> adj[],   vector <int >& ans ,  vector <int >& vis, int i){
+          vis [i]=1;
+          ans .push_back( i);
+          for ( auto it : adj[i]){
+              if ( vis [it]==0)
+              dfs (V, adj , ans , vis, it);
+          }
+          return ans ;
+      }
+    
+    
     vector<int> dfsOfGraph(int V, vector<int> adj[]) {
         // Code here
-         int start =0; 
-          int vis[V]= {0};
-         
+         vector <int > vis (V, 0);
           vector <int > ans ;
-           dfs( start, ans, vis , V, adj );
-            return ans ;
+         
+         return dfs ( V, adj , ans , vis, 0);
     }
-    
 };
 
 //{ Driver Code Starts.
