@@ -3,51 +3,39 @@
 using namespace std;
 
 // } Driver Code Ends
-
 class Solution
 {
+
+private:
+	void dfs(int node, int vis[], stack<int> &st,
+	         vector<int> adj[]) {
+		vis[node] = 1;
+		for (auto it : adj[node]) {
+			if (!vis[it]) dfs(it, vis, st, adj);
+		}
+		st.push(node);
+	}
 public:
-    void dfs(int vis[], vector<int> adj[], int i, stack<int> &st)
-    {
-        vis[i] = 1;
-        int node = i;
-        for (auto it : adj[node])
-        {
-            if (!vis[it])
-            {
-                dfs(vis, adj, it, st);
-            }
-        }
-        st.push(node);
-    }
+	//Function to return list containing vertices in Topological order.
+	vector<int> topoSort(int V, vector<int> adj[])
+	{
+		int vis[V] = {0};
+		stack<int> st;
+		for (int i = 0; i < V; i++) {
+			if (!vis[i]) {
+				dfs(i, vis, st, adj);
+			}
+		}
 
-    vector<int> topoSort(int V, vector<int> adj[])
-    {
-        vector<int> topo;
-        stack<int> st;
-  int vis [V]={0};
-       
-
-        for (int i = 0; i < V; i++)
-        {
-            if (!vis[i])
-            {
-                dfs(vis, adj, i, st);
-            }
-        }
-
-        // Pop elements from stack to get topological order
-        while (!st.empty())
-        {
-            topo.push_back(st.top());
-            st.pop();
-        }
-
-       
-
-        return topo;
-    }
+		vector<int> ans;
+		while (!st.empty()) {
+			ans.push_back(st.top());
+			st.pop();
+		}
+		return ans;
+	}
 };
+
 
 
 //{ Driver Code Starts.
