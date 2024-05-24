@@ -5,9 +5,7 @@ using namespace std;
 // } Driver Code Ends
 class Solution
 {
-
-private:
-	void dfs(int node, int vis[], stack<int> &st,
+void dfs(int node, int vis[], queue<int> &st,
 	         vector<int> adj[]) {
 		vis[node] = 1;
 		for (auto it : adj[node]) {
@@ -20,7 +18,7 @@ public:
 	vector<int> topoSort(int V, vector<int> adj[])
 	{
 		int vis[V] = {0};
-		stack<int> st;
+		queue<int> st;
 		for (int i = 0; i < V; i++) {
 			if (!vis[i]) {
 				dfs(i, vis, st, adj);
@@ -29,14 +27,13 @@ public:
 
 		vector<int> ans;
 		while (!st.empty()) {
-			ans.push_back(st.top());
+			ans.push_back(st.front());
 			st.pop();
 		}
+		reverse(ans.begin(), ans.end());
 		return ans;
 	}
 };
-
-
 
 //{ Driver Code Starts.
 
