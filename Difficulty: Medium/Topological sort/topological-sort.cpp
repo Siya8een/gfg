@@ -6,34 +6,39 @@ using namespace std;
 class Solution
 {
 	public:
-	//Function to return list containing vertices in Topological order. 
-	void dfs ( stack < int > & st , vector < int > & vis , vector < int> adj[], int i ){
-	    vis[i]=1;
+	// radhey radhey nmah sidham om shanti jai shree krishna
+	
+	void dfs( int i , vector < int > & vis , vector < int > adj[], stack < int >& q){
+	    vis[i] = 1;
+	   
 	    for ( auto it : adj[i]){
-	        if ( vis[it] == -1){
-	            dfs( st , vis , adj , it);
-	        }
+	         if ( vis[it]==0){
+	              dfs( it , vis , adj , q);
+	         }
 	    }
-	    
-	    st.push( i);
+	     q.push(i);
 	}
+	//Function to return list containing vertices in Topological order. 
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
 	    // code here
 	    vector < int > ans ;
-	    stack < int > st;
-	    
-	    // No need to create adjlist, use adj[] directly
-	    vector < int > vis ( V , -1);
-	    for ( int i =0; i < V ; i++){
-	        if (vis[i]== -1 ){
-	            dfs (st , vis , adj , i);
-	        }
+	    if ( V == 0){
+	        return ans;
 	    }
-	     while ( !st.empty()){
-	         ans.push_back( st.top());
-	         st.pop();
-	     }
+	    vector < int > vis ( V , 0);
+	    stack < int > q;
+	    for ( int i =0 ; i < V ; i++){
+	         if ( vis[i]==0){
+	              dfs ( i , vis , adj , q);
+	         }
+	    }
+	    
+	    while ( !q.empty()){
+	        ans.push_back( q.top());
+	        q.pop();
+	    }
+	    
 	    return ans ;
 	}
 };
