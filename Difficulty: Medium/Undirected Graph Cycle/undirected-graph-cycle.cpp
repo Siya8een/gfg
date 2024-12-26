@@ -2,41 +2,43 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
 // } Driver Code Ends
 class Solution {
   public:
     // Function to detect cycle in an undirected graph.
-    bool isCycle(int V, vector<int> adj[]) {
+    bool isCycle(vector<vector<int>>& adj) {
         // Code here
-         vector < int > vis( V , -1);
-        queue < pair<int , int> > q;
-        for ( int i =0 ; i < V ; i++)
-       { 
-           if ( vis[i] == -1)
-        {   q.push( { i , -1});
-        // { node , parent }
-        vis[i]=1;
-        while ( !q.empty()){
-            auto node= q.front().first;
-            auto p= q.front().second;
-            q.pop();
-            for ( auto it : adj[node]){
-                if ( vis[it]==-1){
-                    vis[it]=1;
-                   
-                    q.push({ it , node});
-                }
-                else if(vis[it]== 1 && it != p)  {
-                  // if (parent[it] != p){
-                       return true;
-                  // }
+       int n = adj.size(); // Number of vertices
+        vector<int> vis(n, 0); // Visited array
+        
+        // Iterate over all components of the graph
+        for (int start = 0; start < n; ++start) {
+            if (!vis[start]) {
+                queue<pair<int, int>> q;
+                q.push({start, -1}); // {current node, parent}
+                vis[start] = 1;
+
+                while (!q.empty()) {
+                    int node = q.front().first;
+                    int parent = q.front().second;
+                    q.pop();
+
+                    for (int neighbor : adj[node]) {
+                        if (!vis[neighbor]) {
+                            vis[neighbor] = 1;
+                            q.push({neighbor, node});
+                        } else if (neighbor != parent) {
+                            // If neighbor is visited and not parent, cycle detected
+                            return true;
+                        }
+                    }
                 }
             }
         }
-           }
-       }
-        return false;
-    }
+        return false; //
+         }
+    
 };
 
 //{ Driver Code Starts.
@@ -46,7 +48,7 @@ int main() {
     while (tc--) {
         int V, E;
         cin >> V >> E;
-        vector<int> adj[V];
+        vector<vector<int>> adj(V);
         for (int i = 0; i < E; i++) {
             int u, v;
             cin >> u >> v;
@@ -54,11 +56,14 @@ int main() {
             adj[v].push_back(u);
         }
         Solution obj;
-        bool ans = obj.isCycle(V, adj);
+        bool ans = obj.isCycle(adj);
         if (ans)
             cout << "1\n";
         else
             cout << "0\n";
+
+        cout << "~"
+             << "\n";
     }
     return 0;
 }
